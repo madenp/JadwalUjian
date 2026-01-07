@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Daftar Dosen Penguji - Jadwal Ujian Mahasiswa">
-    <title>Daftar Dosen Penguji</title>
+    <meta name="description" content="Daftar Mahasiswa - Status Jadwal Ujian">
+    <title>Cek Mahasiswa</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,15 +30,13 @@
                     <div class="logo-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
                         </svg>
                     </div>
                     <div>
-                        <h1>Daftar Dosen Penguji</h1>
-                        <p class="subtitle">Jadwal Pengujian 30 Hari Ke Depan</p>
+                        <h1>Cek Mahasiswa</h1>
+                        <p class="subtitle">Status Jadwal Ujian Mahasiswa</p>
                     </div>
                 </div>
                 <a href="index.html" class="btn-secondary">
@@ -68,36 +66,34 @@
                         </svg>
                     </div>
                     <div class="stat-content">
-                        <p class="stat-label">Total Dosen</p>
-                        <h3 class="stat-value" id="totalDosen">0</h3>
+                        <p class="stat-label">Total Mahasiswa</p>
+                        <h3 class="stat-value" id="totalMahasiswa">0</h3>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon stat-icon-green">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                            <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                     </div>
                     <div class="stat-content">
-                        <p class="stat-label">Total Pengujian</p>
-                        <h3 class="stat-value" id="totalPengujian">0</h3>
+                        <p class="stat-label">Sudah Ada Jadwal</p>
+                        <h3 class="stat-value" id="sudahJadwal">0</h3>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon stat-icon-purple">
+                    <div class="stat-icon stat-icon-orange">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
                         </svg>
                     </div>
                     <div class="stat-content">
-                        <p class="stat-label">Belum Ujian</p>
-                        <h3 class="stat-value" id="belumUjian">0</h3>
+                        <p class="stat-label">Belum Ada Jadwal</p>
+                        <h3 class="stat-value" id="belumJadwal">0</h3>
                     </div>
                 </div>
             </div>
@@ -110,7 +106,7 @@
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
-                    <input type="text" id="searchInput" class="search-input" placeholder="Cari nama dosen...">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Cari nama mahasiswa...">
                     <button id="clearSearch" class="clear-search-btn" style="display: none;">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -121,26 +117,60 @@
                 </div>
             </div>
 
-            <!-- Dosen Cards -->
-            <div class="dosen-section">
-                <div class="section-header">
-                    <h2>Daftar Dosen Penguji</h2>
-                </div>
-
-                <div id="dosenContainer" class="dosen-grid">
-                    <!-- Dosen cards will be inserted here -->
-                </div>
-
-                <!-- Empty State -->
-                <div id="emptyState" class="empty-state" style="display: none;">
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="belum">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="12" y1="8" x2="12" y2="12"></line>
                         <line x1="12" y1="16" x2="12.01" y2="16"></line>
                     </svg>
-                    <h3>Tidak ada data dosen</h3>
-                    <p>Belum ada jadwal ujian dalam 30 hari ke depan.</p>
+                    Belum Ada Jadwal
+                    <span class="tab-badge" id="badgeBelum">0</span>
+                </button>
+                <button class="tab-btn" data-tab="sudah">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    Sudah Ada Jadwal
+                    <span class="tab-badge" id="badgeSudah">0</span>
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content-container">
+                <!-- Tab Belum Ada Jadwal -->
+                <div id="tabBelum" class="tab-content active">
+                    <div class="mahasiswa-list" id="listBelum">
+                        <!-- Mahasiswa cards will be inserted here -->
+                    </div>
+                    <div id="emptyBelum" class="empty-state" style="display: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <h3>Semua Mahasiswa Sudah Terjadwal</h3>
+                        <p>Tidak ada mahasiswa yang belum memiliki jadwal ujian.</p>
+                    </div>
+                </div>
+
+                <!-- Tab Sudah Ada Jadwal -->
+                <div id="tabSudah" class="tab-content">
+                    <div class="mahasiswa-list" id="listSudah">
+                        <!-- Mahasiswa cards will be inserted here -->
+                    </div>
+                    <div id="emptySudah" class="empty-state" style="display: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <h3>Belum Ada Mahasiswa Terjadwal</h3>
+                        <p>Belum ada mahasiswa yang memiliki jadwal ujian.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -148,9 +178,9 @@
 
     <!-- Detail Modal -->
     <div id="detailModal" class="modal">
-        <div class="modal-content modal-detail-dosen">
+        <div class="modal-content modal-detail-mahasiswa">
             <div class="modal-header">
-                <h2 id="dosenName">Detail Pengujian</h2>
+                <h2 id="mahasiswaName">Detail Jadwal Ujian</h2>
                 <button class="modal-close" id="closeModal">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -165,7 +195,7 @@
         </div>
     </div>
 
-    <script src="dosen.js"></script>
+    <script src="mahasiswa.js"></script>
 </body>
 
 </html>

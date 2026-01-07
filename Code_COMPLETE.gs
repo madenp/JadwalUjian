@@ -243,7 +243,7 @@ function createResponse(success, message, data = null) {
 }
 
 /**
- * Update catatan (notes) untuk jadwal tertentu
+ * Update catatan (notes) untuk jadwal tertentu via POST
  * Dengan verifikasi password
  */
 function updateCatatan(data) {
@@ -271,6 +271,45 @@ function updateCatatan(data) {
     const newCatatan = data.catatan || '';
     
     sheet.getRange(rowIndex, catatanColumn).setValue(newCatatan);
+    
+    return createResponse(true, 'Catatan berhasil diupdate');
+  } catch (error) {
+    return createResponse(false, 'Error: ' + error.message);
+  }
+}
+
+/**
+ * Update catatan via GET request (untuk menghindari CORS issues)
+ * Dengan verifikasi password
+ */
+function updateCatatanGet(e) {
+  try {
+    // Ambil parameter dari URL
+    const password = e.parameter.password;
+    const rowIndex = parseInt(e.parameter.rowIndex);
+    const catatan = e.parameter.catatan || '';
+    
+    // Verifikasi password
+    const PASSWORD = 'akt2026';
+    if (!password || password !== PASSWORD) {
+      return createResponse(false, 'Password salah! Akses ditolak.');
+    }
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = ss.getSheetByName(SHEET_NAME);
+    
+    if (!sheet) {
+      return createResponse(false, 'Sheet "Jadwal" tidak ditemukan');
+    }
+    
+    if (!rowIndex || isNaN(rowIndex)) {
+      return createResponse(false, 'Row index tidak valid');
+    }
+    
+    // Update hanya kolom Catatan (kolom ke-13, index M)
+    const catatanColumn = 13;
+    
+    sheet.getRange(rowIndex, catatanColumn).setValue(catatan);
     
     return createResponse(true, 'Catatan berhasil diupdate');
   } catch (error) {

@@ -343,6 +343,25 @@ function createScheduleCard(schedule) {
                     <span>${schedule.catatan}</span>
                 </div>
             ` : ''}
+            
+            ${schedule.catatan !== 'Sudah Ujian' ? `
+                <div class="schedule-actions">
+                    <button class="btn-mark-done" onclick="markAsDone(${schedule.rowIndex}, '${schedule.namaMahasiswa.replace(/'/g, "\\'")}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        Sudah Ujian
+                    </button>
+                </div>
+            ` : `
+                <div class="schedule-status-done">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <span>Ujian Telah Selesai</span>
+                </div>
+            `}
         </div>
     `;
 }
@@ -404,4 +423,69 @@ function formatDateDisplay(dateStr) {
 
 function showNotification(message, type = 'info') {
     alert(message);
+}
+
+// ===================================
+// Mark as Done Functionality
+// ===================================
+async function markAsDone(rowIndex, namaMahasiswa) {
+    // Prompt for password
+    const password = prompt(`Masukkan password untuk menandai ujian "${namaMahasiswa}" sebagai selesai:`);
+
+    if (!password) {
+        return; // User cancelled
+    }
+
+    // Show loading
+    showLoading();
+
+    try {
+        const result = await updateCatatan(rowIndex, 'Sudah Ujian', password);
+
+        if (result.success) {
+            alert('✅ Berhasil! Ujian telah ditandai sebagai selesai.');
+
+            // Reload schedules and refresh display
+            await loadSchedules();
+            renderCalendar();
+            updateStatistics();
+
+            // If schedule details is open, refresh it
+            if (selectedDate) {
+                const dateStr = formatDateForInput(selectedDate);
+                const schedulesOnDay = allSchedules.filter(s => s.tanggal === dateStr);
+                if (schedulesOnDay.length > 0) {
+                    showScheduleDetails(selectedDate, schedulesOnDay);
+                } else {
+                    elements.scheduleDetails.style.display = 'none';
+                }
+            }
+        } else {
+            alert('❌ ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error marking as done:', error);
+        alert('❌ Terjadi kesalahan: ' + error.message);
+    } finally {
+        hideLoading();
+    }
+}
+
+async function updateCatatan(rowIndex, catatan, password) {
+    try {
+        // Gunakan GET request dengan parameter untuk menghindari CORS issues
+        const params = new URLSearchParams({
+            action: 'updateCatatan',
+            rowIndex: rowIndex,
+            catatan: catatan,
+            password: password
+        });
+
+        const response = await fetch(`${CONFIG.API_URL}?${params.toString()}`);
+
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        throw new Error('Gagal menghubungi server: ' + error.message);
+    }
 }

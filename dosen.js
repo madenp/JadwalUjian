@@ -62,6 +62,33 @@ function attachEventListeners() {
     elements.detailModal.addEventListener('click', (e) => {
         if (e.target === elements.detailModal) closeModal();
     });
+
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearch');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function (e) {
+            const searchTerm = e.target.value;
+            handleSearch(searchTerm);
+
+            // Show/hide clear button
+            if (clearSearchBtn) {
+                clearSearchBtn.style.display = searchTerm ? 'flex' : 'none';
+            }
+        });
+    }
+
+    if (clearSearchBtn) {
+        clearSearchBtn.addEventListener('click', function () {
+            if (searchInput) {
+                searchInput.value = '';
+                handleSearch('');
+                clearSearchBtn.style.display = 'none';
+                searchInput.focus();
+            }
+        });
+    }
 }
 
 // ===================================
@@ -208,6 +235,51 @@ function processDosenData() {
         dosenData[dosenName].schedules.sort((a, b) =>
             new Date(a.tanggal) - new Date(b.tanggal)
         );
+    });
+}
+
+// ===================================
+// Search Functionality
+// ===================================
+function handleSearch(searchTerm) {
+    const term = searchTerm.toLowerCase().trim();
+    const dosenList = Object.values(dosenData);
+
+    if (!term) {
+        // Show all dosen if search is empty
+        renderDosenCards();
+        return;
+    }
+
+    // Filter dosen based on search term
+    const filteredDosen = dosenList.filter(dosen =>
+        dosen.name.toLowerCase().includes(term)
+    );
+
+    // Render filtered list
+    if (filteredDosen.length === 0) {
+        elements.dosenContainer.style.display = 'none';
+        elements.emptyState.style.display = 'flex';
+        elements.emptyState.querySelector('h3').textContent = 'Tidak ada dosen ditemukan';
+        elements.emptyState.querySelector('p').textContent = `Tidak ada dosen yang cocok dengan pencarian "${searchTerm}".`;
+        return;
+    }
+
+    elements.dosenContainer.style.display = 'grid';
+    elements.emptyState.style.display = 'none';
+
+    // Sort by number of schedules (descending)
+    filteredDosen.sort((a, b) => b.schedules.length - a.schedules.length);
+
+    const html = filteredDosen.map(dosen => createDosenCard(dosen)).join('');
+    elements.dosenContainer.innerHTML = html;
+
+    // Attach click listeners
+    document.querySelectorAll('.dosen-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const dosenName = card.dataset.dosen;
+            showDosenDetail(dosenName);
+        });
     });
 }
 

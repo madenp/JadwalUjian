@@ -1938,3 +1938,341 @@ body {
 .schedule-status-done span {
     font-size: var(--font-size-base);
 }
+
+/* ===================================
+   Status Page Styles
+   =================================== */
+
+/* Status Icon Colors */
+.stat-icon-orange {
+    background: linear-gradient(135deg, var(--warning-500) 0%, var(--warning-600) 100%);
+}
+
+.stat-icon-red {
+    background: linear-gradient(135deg, var(--danger-500) 0%, var(--danger-600) 100%);
+}
+
+/* Status Section */
+.status-section {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-lg);
+    margin-bottom: var(--spacing-2xl);
+    animation: slideUp var(--transition-slow);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.section-title svg {
+    width: 32px;
+    height: 32px;
+    color: var(--primary-600);
+}
+
+.section-title h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--gray-900);
+    margin: 0;
+}
+
+.section-badge {
+    background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    min-width: 50px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+}
+
+.status-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+/* Status Group Card */
+.status-group-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: 0;
+    transition: all var(--transition-base);
+    overflow: hidden;
+}
+
+.status-group-card:hover {
+    border-color: var(--primary-300);
+    box-shadow: var(--shadow-xl);
+}
+
+.group-header-clickable {
+    padding: var(--spacing-lg);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-md);
+    transition: all var(--transition-base);
+    user-select: none;
+}
+
+.group-header-clickable:hover {
+    background: var(--primary-50);
+}
+
+.group-header-clickable:active {
+    background: var(--primary-100);
+}
+
+.group-header {
+    margin-bottom: var(--spacing-lg);
+}
+
+.group-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex: 1;
+}
+
+.group-title h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--gray-800);
+    margin: 0;
+}
+
+.toggle-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-100);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-base);
+    flex-shrink: 0;
+}
+
+.toggle-icon svg {
+    width: 20px;
+    height: 20px;
+    color: var(--gray-600);
+    transition: transform var(--transition-base);
+}
+
+.group-header-clickable:hover .toggle-icon {
+    background: var(--primary-500);
+}
+
+.group-header-clickable:hover .toggle-icon svg {
+    color: white;
+}
+
+.group-students {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding: 0 var(--spacing-lg) var(--spacing-lg);
+    max-height: 2000px;
+    opacity: 1;
+    transition: all var(--transition-slow);
+    overflow: hidden;
+}
+
+/* Collapsed State */
+.status-group-card.collapsed .group-students {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.status-group-card.collapsed .toggle-icon svg {
+    transform: rotate(-90deg);
+}
+
+.status-group-card:not(.collapsed) .toggle-icon svg {
+    transform: rotate(0deg);
+}
+
+/* Student Item */
+.student-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background: white;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+    cursor: pointer;
+    gap: var(--spacing-md);
+}
+
+.student-item:hover {
+    border-color: var(--primary-400);
+    background: var(--primary-50);
+    transform: translateX(5px);
+    box-shadow: var(--shadow-md);
+}
+
+.student-item.status-scheduled {
+    border-left: 4px solid var(--warning-500);
+}
+
+.student-item.status-pending {
+    border-left: 4px solid var(--danger-500);
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex: 1;
+}
+
+.student-avatar {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary-100) 0%, var(--secondary-100) 100%);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.student-avatar svg {
+    width: 24px;
+    height: 24px;
+    color: var(--primary-600);
+}
+
+.student-details {
+    flex: 1;
+}
+
+.student-details h4 {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--gray-900);
+    margin: 0 0 var(--spacing-xs);
+}
+
+.student-schedule-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.schedule-date,
+.schedule-time {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+}
+
+.schedule-date svg,
+.schedule-time svg {
+    width: 14px;
+    height: 14px;
+    color: var(--primary-500);
+}
+
+.student-pending-text {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+    margin: 0;
+    font-style: italic;
+}
+
+.student-pending-text svg {
+    width: 14px;
+    height: 14px;
+    color: var(--danger-500);
+}
+
+.student-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--gray-100);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-base);
+}
+
+.student-item:hover .student-action {
+    background: var(--primary-500);
+}
+
+.student-action svg {
+    width: 16px;
+    height: 16px;
+    color: var(--gray-600);
+    transition: all var(--transition-base);
+}
+
+.student-item:hover .student-action svg {
+    color: white;
+}
+
+/* Schedule Badge Variants */
+.schedule-badge-scheduled {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #92400e;
+}
+
+/* Responsive Design for Status Page */
+@media (max-width: 768px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-md);
+    }
+
+    .section-badge {
+        align-self: flex-start;
+    }
+
+    .student-schedule-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+
+    .student-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .student-action {
+        align-self: flex-end;
+    }
+}

@@ -14,7 +14,7 @@ const CONFIG = {
 // State Management
 // ===================================
 let allSchedules = [];
-let currentDate = new Date(2026, 0, 1); // Januari 2026
+let currentDate = new Date(); // Gunakan tanggal saat ini
 let selectedDate = null;
 
 // ===================================

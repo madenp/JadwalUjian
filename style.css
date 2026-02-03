@@ -2249,8 +2249,218 @@ body {
     color: #92400e;
 }
 
-/* Responsive Design for Status Page */
+/* ===================================
+   Responsive Design
+   =================================== */
+
+/* Tablet and below */
 @media (max-width: 768px) {
+
+    /* Container */
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+
+    /* Header */
+    .header {
+        padding: var(--spacing-md) 0;
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-md);
+    }
+
+    .logo-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header h1 {
+        font-size: var(--font-size-xl);
+    }
+
+    .subtitle {
+        font-size: var(--font-size-xs);
+    }
+
+    /* Header Buttons */
+    .header-content>div:last-child {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-danger {
+        padding: 0.5rem 1rem;
+        font-size: var(--font-size-sm);
+    }
+
+    .btn-primary svg,
+    .btn-secondary svg,
+    .btn-danger svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Main Content */
+    .main-content {
+        padding: var(--spacing-lg) 0;
+    }
+
+    /* Statistics Cards */
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .stat-card {
+        padding: var(--spacing-md);
+    }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .stat-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .stat-value {
+        font-size: var(--font-size-2xl);
+    }
+
+    /* Calendar Header */
+    .calendar-header {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .calendar-header h2 {
+        font-size: var(--font-size-lg);
+    }
+
+    .nav-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .nav-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Calendar Container */
+    .calendar-container {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+    }
+
+    /* Calendar Weekdays */
+    .calendar-weekdays {
+        gap: 2px;
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .weekday {
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-xs);
+    }
+
+    /* Calendar Days - Mobile Optimized */
+    .calendar-days {
+        gap: 4px;
+    }
+
+    .calendar-day {
+        padding: 4px;
+        border-radius: var(--radius-md);
+        border-width: 1.5px;
+        min-height: 45px;
+    }
+
+    .day-number {
+        font-size: var(--font-size-sm);
+        margin-bottom: 2px;
+    }
+
+    .schedule-count {
+        font-size: 10px;
+        padding: 1px 5px;
+        min-width: 18px;
+    }
+
+    /* Schedule Details */
+    .schedule-details {
+        padding: var(--spacing-md);
+    }
+
+    .details-header {
+        margin-bottom: var(--spacing-md);
+        padding-bottom: var(--spacing-sm);
+    }
+
+    .details-header h3 {
+        font-size: var(--font-size-base);
+    }
+
+    .close-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .close-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Schedule Card */
+    .schedule-card {
+        padding: var(--spacing-md);
+    }
+
+    .schedule-title h3 {
+        font-size: var(--font-size-base);
+    }
+
+    .exam-type-badge {
+        font-size: 10px;
+        padding: 0.2rem 0.5rem;
+    }
+
+    .schedule-time,
+    .schedule-location,
+    .schedule-location-link {
+        font-size: var(--font-size-sm);
+    }
+
+    .schedule-time svg,
+    .schedule-location svg,
+    .schedule-location-link svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .examiner-role {
+        min-width: 70px;
+        font-size: var(--font-size-xs);
+    }
+
+    .examiner-name {
+        font-size: var(--font-size-xs);
+    }
+
+    .schedule-notes {
+        padding: var(--spacing-sm);
+        font-size: var(--font-size-xs);
+    }
+
+    /* Status Page Specific */
     .section-header {
         flex-direction: column;
         align-items: flex-start;
@@ -2274,5 +2484,127 @@ body {
 
     .student-action {
         align-self: flex-end;
+    }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+
+    /* Calendar Days - Extra small optimization */
+    .calendar-days {
+        gap: 3px;
+    }
+
+    .calendar-day {
+        padding: 3px;
+        min-height: 40px;
+        border-radius: var(--radius-sm);
+    }
+
+    .day-number {
+        font-size: 12px;
+        margin-bottom: 1px;
+    }
+
+    .schedule-count {
+        font-size: 9px;
+        padding: 1px 4px;
+        min-width: 16px;
+    }
+
+    /* Calendar Weekdays */
+    .weekday {
+        font-size: 10px;
+        padding: 2px;
+        letter-spacing: 0;
+    }
+
+    /* Header */
+    .header h1 {
+        font-size: var(--font-size-lg);
+    }
+
+    .logo-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .logo-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    /* Header Buttons - Stack on very small screens */
+    .header-content>div:last-child {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-danger {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Calendar Header */
+    .calendar-header h2 {
+        font-size: var(--font-size-base);
+    }
+
+    .nav-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .nav-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Stats */
+    .stat-card {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .stat-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .stat-label {
+        font-size: var(--font-size-xs);
+    }
+
+    .stat-value {
+        font-size: var(--font-size-xl);
+    }
+
+    /* Examiner Items */
+    .examiner-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    }
+
+    .examiner-role {
+        min-width: unset;
+    }
+
+    /* Schedule Actions */
+    .btn-mark-done {
+        width: 100%;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        font-size: var(--font-size-sm);
+    }
+
+    .schedule-status-done {
+        font-size: var(--font-size-sm);
     }
 }

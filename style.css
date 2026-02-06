@@ -106,6 +106,8 @@ body {
     background: linear-gradient(135deg, var(--primary-50) 0%, var(--secondary-50) 100%);
     min-height: 100vh;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 /* ===================================
@@ -224,6 +226,7 @@ body {
 
 .main-content {
     padding: var(--spacing-2xl) 0;
+    flex: 1;
 }
 
 /* ===================================
@@ -2607,4 +2610,33 @@ body {
     .schedule-status-done {
         font-size: var(--font-size-sm);
     }
+}
+/* ===================================
+   Footer
+   =================================== */
+.footer {
+    background: white;
+    color: var(--gray-600);
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+    border-top: 1px solid var(--gray-200);
+    margin-top: auto;
+}
+
+.footer p {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+
+.footer-link {
+    color: var(--primary-600);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--transition-fast);
+}
+
+.footer-link:hover {
+    color: var(--primary-700);
+    text-decoration: underline;
 }
